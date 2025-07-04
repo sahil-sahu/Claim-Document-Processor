@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env
+
+# Docker
+.dockerignore
+Dockerfile
+
+# Git
+.git/
+
+# Test/coverage
+.pytest_cache/
+.mypy_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads (if any)
+uploads/ 

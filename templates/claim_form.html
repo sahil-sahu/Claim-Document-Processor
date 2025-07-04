@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Process Claim</title>
+</head>
+<body>
+    <h2>Upload Claim Documents</h2>
+    <form action="/process-claim" method="post" enctype="multipart/form-data">
+        <label for="files">Select PDF files:</label>
+        <input type="file" id="files" name="files" accept="application/pdf" multiple required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html> 
