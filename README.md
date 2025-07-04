@@ -17,9 +17,8 @@ graph TD;
     A[User uploads PDFs] --> B[UploadAgent: Uploads to Gemini]
     B --> C[ClassificationAgent: Classifies each PDF]
     C --> D[BillAgent/DischargeAgent: Extracts structured data]
-    D --> E[Validation: Checks for missing/inconsistent data]
-    E --> F[DecisionAgent: Final claim decision]
-    F --> G[API returns structured JSON response]
+    D --> F[DecisionAgent: Final claim decision]
+    E --> G[API returns structured JSON response]
 ```
 
 - **UploadAgent:** Handles uploading files to Gemini's Files API and returns file handles.
@@ -38,7 +37,22 @@ graph TD;
 - **Cursor, ChatGPT, Claude:** Used for code generation, refactoring, and prompt design during development.
 
 ## Example Prompts
+### 0. My prompts for Cursor and ChatGPT
+```
+--> using fast API with asyncio build a endpoint /process-claim having a html form in it with multiple files pdf files and a submit button and giving a json static response on submit {
+ "documents": [
+   {
+     "type": "bill",
+     "hospital_name": "ABC Hospital",
+     ....
+ also create virtual env and docker compose for it too
 
+--> here after classification i want to pass valid files to diffrent agents such as BillAgent and DischargeAgent having fileName as parameter and inside it will be some other prompt and a return  {
+      "type": "bill",
+--> fix this prompt so that discharrge summary and bill can be identifed betterr prompt = (
+            "For each PDF document provided, classify it as one of: bill, discharge_summary, id_card. "
+
+```
 ### 1. ClassificationAgent Prompt
 ```
 For each PDF document provided, classify it as one of: bill, discharge_summary, id_card. 
