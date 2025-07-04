@@ -17,8 +17,8 @@ graph TD;
     A[User uploads PDFs] --> B[UploadAgent: Uploads to Gemini]
     B --> C[ClassificationAgent: Classifies each PDF]
     C --> D[BillAgent/DischargeAgent: Extracts structured data]
-    D --> F[DecisionAgent: Final claim decision]
-    E --> G[API returns structured JSON response]
+    D --> E[DecisionAgent: Final claim decision]
+    E --> F[API returns structured JSON response]
 ```
 
 - **UploadAgent:** Handles uploading files to Gemini's Files API and returns file handles.
