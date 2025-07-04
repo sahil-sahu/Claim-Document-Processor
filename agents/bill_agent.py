@@ -10,7 +10,7 @@ async def extract_bill_details(gemini_client: Client, file_resource) -> dict:
     )
     response = await asyncio.to_thread(
         gemini_client.models.generate_content,
-        model="gemini-1.5-flash",
+        model="gemini-2.5-pro",
         contents=[file_resource, prompt]
     )
     text = response.text or ""

@@ -13,7 +13,7 @@ Given the following structured data about a claim:
 {json.dumps(data, indent=2)}
 
 Evaluate the claim based on:
-- Presence of required documents (bill, discharge_summary, etc.)
+- Presence of required documents (bill, discharge_summary)
 - Validity and consistency of data (e.g., dates match, no missing fields)
 
 Return a JSON object in this format:
@@ -33,7 +33,7 @@ Return a JSON object in this format:
 Respond only with the final decision JSON.
 """
     response = gemini_client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.5-pro",
         contents=[prompt]
     )
     text = response.text or ""

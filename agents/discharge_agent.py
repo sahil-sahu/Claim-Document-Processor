@@ -9,7 +9,7 @@ async def extract_discharge_details(gemini_client: Client, file_resource) -> dic
         "If any field is missing, set its value to null."
     )
     response = gemini_client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.5-pro",
         contents=[file_resource, prompt]
     )
     # Try to extract JSON from response

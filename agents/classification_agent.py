@@ -15,19 +15,23 @@ async def classify_pdfs_with_gemini(gemini_client, file_resources: dict) -> list
 
     try:
         prompt = (
-            "You are a document classifier for medical insurance claims.\n\n"
-            "For each PDF document provided, classify it as one of the following types:\n"
-            "- 'bill': usually contains billing information, hospital name, itemized charges, or total amount due.\n"
-            "- 'discharge_summary': typically includes patient details, diagnosis, admission and discharge dates, and treatment summary.\n"
-            "- 'other': if the document does not match any of the above.\n\n"
-            f"Here are the filenames I provided: {filenames}.\n\n"
-            "Return a JSON array where each element is an object with 'filename' (matching the input) and 'type'.\n"
-            "Example output:\n"
-            "[{\"filename\": \"file1.pdf\", \"type\": \"bill\"}, {\"filename\": \"file2.pdf\", \"type\": \"id_card\"}]\n\n"
-            "Ensure your output includes all filenames. Respond only with the JSON array."
-        )
+    "You are a document classifier for medical insurance claims.\n\n"
+    "For each PDF document provided, classify it as one or more of the following types:\n"
+    "- 'bill': contains billing information such as hospital name, itemized charges, or total amount due. These documents often mention 'FINAL BILL' or 'INVOICE', especially on the first page.\n"
+    "- 'discharge_summary': contains patient details, diagnosis, admission and discharge dates, and treatment summary. These typically contain the phrase 'Discharge Summary' prominently, especially on the first page.\n"
+    "- 'other': if the document does not match any of the above.\n\n"
+    "Give **strong emphasis to the content of the first page** when making your decision. If the first page clearly indicates a 'discharge_summary' or 'bill', that should heavily influence the classification.\n\n"
+    "If a document contains content of both 'bill' and 'discharge_summary' types (e.g., billing section after the discharge notes), **create two separate entries** for that file — one with type 'bill', and another with type 'discharge_summary'.\n\n"
+    f"Here are the filenames I provided: {filenames}.\n\n"
+    "Return a JSON array where each element is an object with 'filename' (matching the input) and 'type'.\n"
+    "Example output:\n"
+    "[{{\"filename\": \"file1.pdf\", \"type\": \"bill\"}}, {{\"filename\": \"file1.pdf\", \"type\": \"discharge_summary\"}}, {{\"filename\": \"file2.pdf\", \"type\": \"other\"}}]\n\n"
+    "Ensure your output includes all filenames. Respond only with the JSON array."
+)
+
+
         content_parts.append(prompt)
-        response = gemini_client.models.generate_content(model="gemini-1.5-flash", contents=content_parts)
+        response = gemini_client.models.generate_content(model="gemini-2.5-pro", contents=content_parts)
         # print(response.text)
         json_results = []
         try:

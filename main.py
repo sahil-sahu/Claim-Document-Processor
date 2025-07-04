@@ -81,7 +81,7 @@ async def process_claim(files: List[UploadFile] = File(...)):
         # Add more as needed
 
     documents = await asyncio.gather(*tasks)
-
+    print(documents)
     validation = {
         "missing_documents": [],
         "discrepancies": []
